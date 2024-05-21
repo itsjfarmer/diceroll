@@ -20,19 +20,17 @@
             position: relative;
             width: 800px;
             height: 600px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
         }
-        #rollButton {
-            position: absolute;
-            top: 20px;
-            left: 20px;
+        .rollButton {
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
         }
-        #diceRollAmount {
-            position: absolute;
-            top: 60px;
-            left: 20px;
+        .diceContainer {
+            position: relative;
             width: 50px;
             height: 50px;
             background-image: url('dice.png'); /* Path to your dice image */
@@ -45,19 +43,56 @@
             color: black;
             display: none; /* Hide the dice initially */
         }
+        #winner {
+            position: absolute;
+            top: 20px;
+            font-size: 24px;
+            color: white;
+        }
     </style>
 </head>
 <body>
     <div id="tabletop">
-        <button id="rollButton" onclick="rollDice()">Roll Dice</button>
-        <div id="diceRollAmount"></div>
+        <div>
+            <button class="rollButton" onclick="rollDice('dice1')">Roll Dice 1</button>
+            <div id="dice1" class="diceContainer"></div>
+        </div>
+        <div id="winner"></div>
+        <div>
+            <button class="rollButton" onclick="rollDice('dice2')">Roll Dice 2</button>
+            <div id="dice2" class="diceContainer"></div>
+        </div>
     </div>
     <script>
-        function rollDice() {
-            const diceRollAmount = document.getElementById('diceRollAmount');
+        let roll1 = null;
+        let roll2 = null;
+
+        function rollDice(diceId) {
+            const dice = document.getElementById(diceId);
             const rollResult = Math.ceil(Math.random() * 4);
-            diceRollAmount.innerText = rollResult;
-            diceRollAmount.style.display = 'flex'; // Show the dice result
+            dice.innerText = rollResult;
+            dice.style.display = 'flex';
+
+            if (diceId === 'dice1') {
+                roll1 = rollResult;
+            } else {
+                roll2 = rollResult;
+            }
+
+            if (roll1 !== null && roll2 !== null) {
+                determineWinner();
+            }
+        }
+
+        function determineWinner() {
+            const winner = document.getElementById('winner');
+            if (roll1 > roll2) {
+                winner.innerText = 'Dice 1 Wins!';
+            } else if (roll2 > roll1) {
+                winner.innerText = 'Dice 2 Wins!';
+            } else {
+                winner.innerText = 'It\'s a Tie!';
+            }
         }
     </script>
 </body>
