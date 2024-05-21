@@ -1,1 +1,55 @@
-test
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roll a 4-sided Dice</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #A0522D; /* Brown color to match the tabletop */
+        }
+        #tabletop {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            background-image: url('tabletop.png'); /* Path to your tabletop image */
+            background-size: cover;
+            background-position: center;
+        }
+        #rollButton {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #diceRollAmount {
+            position: absolute;
+            top: 60px;
+            left: 20px;
+            font-size: 24px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="tabletop">
+        <button id="rollButton" onclick="rollDice()">Roll Dice</button>
+        <div id="diceRollAmount"></div>
+    </div>
+    <script>
+        function rollDice() {
+            const diceRollAmount = document.getElementById('diceRollAmount');
+            const rollResult = Math.ceil(Math.random() * 4);
+            diceRollAmount.innerText = `You rolled a ${rollResult}!`;
+        }
+    </script>
+</body>
+</html>
